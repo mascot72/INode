@@ -10,6 +10,7 @@ router.post('/', function(req, res) {
 });
 
 router.put('/', function(req, res) {
+    console.log('req.params=%s', req.params);
     res.status(400).json({ message: 'Hey, you. Bad Request!' });
 });
 

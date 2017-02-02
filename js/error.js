@@ -4,6 +4,7 @@
     {
         var num = Math.ceil( Math.random() * totalCount );
         document.body.background = '//media.disquscdn.com/errors/img/'+num+'.gif';
-        document.body.style.backgroundRepeat = "repeat";// Background repeat
+        document.body.style.backgroundRepeat = "no-repeat";// Background repeat
+        document.body.style.backgroundSize = 'cover';
     }
     window.onload = ChangeIt;
