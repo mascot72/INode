@@ -1,6 +1,6 @@
-const User = require('../../../models/user')
+const User = require('../../../models/user');
 
-/* 
+/*
     GET /api/user/list
 */
 
@@ -9,17 +9,17 @@ exports.list = (req, res) => {
     if(!req.decoded.admin) {
         return res.status(403).json({
             message: 'you are not an admin'
-        })
+        });
     }
 
     User.find({}, '-password').exec()
     .then(
         users=> {
-            res.json({users})
+            res.json({users});
         }
-    )
+    );
 
-}
+};
 
 
 /*
@@ -30,20 +30,20 @@ exports.assignAdmin = (req, res) => {
     if(!req.decoded.admin) {
         return res.status(403).json({
             message: 'you are not an admin'
-        })
+        });
     }
 
     User.findOneByUsername(req.params.username)
     .then(
         user => {
-            if(!user) throw new Error('user not found')
-            user.assignAdmin()
+            if(!user) throw new Error('user not found');
+            user.assignAdmin();
         }
     ).then(
         res.json({
             success: true
         })
     ).catch(
-        (err) => { res.status(404).json({message: err.message})}
-    )
-}
+        (err) => { res.status(404).json({message: err.message}); }
+    );
+};
