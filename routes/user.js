@@ -6,7 +6,7 @@ router.get('/:id', function(req, res) {
 });
 
 router.post('/', function(req, res) {
-    res.json({ success: true })
+    res.json({ success: true });
 });
 
 router.put('/', function(req, res) {
