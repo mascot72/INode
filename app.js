@@ -21,6 +21,7 @@ const app = express();
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
+
 // print the request log on console
 app.use(morgan('dev'));
 
@@ -34,6 +35,36 @@ app.get('/', (req, res) => {
 
 // configure api router
 app.use('/api', require('./routes/api'));
+
+app.use('/public', express.static('public'));
+app.use('/js', express.static('js'));
+
+// Error 처리
+// app.use(function(err, req, res, next) {
+//   console.error(err.stack);
+//   next(err);
+// });
+// app.use(function(err, req, res, next) {
+//   if (res.headersSent) {
+//     return next(err);
+//   }
+//   res.status(500);
+//   res.render('error', { error: err });
+// });
+var errorHandler = require('express-error-handler'),
+  handler = errorHandler({
+    static: {
+      '404': 'public/404.html'
+    }
+}); 
+
+// After all your routes...
+// Pass a 404 into next(err)
+app.use( errorHandler.httpError(404) );
+// Handle all unhandled errors:
+app.use( handler );
+
+
 
 // open the server
 app.listen(port, () => {
@@ -51,3 +82,4 @@ db.on('error', console.error);
 db.once('open', ()=>{
     console.log('connected to mongodb server');
 });
+
